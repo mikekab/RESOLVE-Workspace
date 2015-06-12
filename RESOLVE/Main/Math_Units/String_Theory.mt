@@ -150,8 +150,7 @@ Precis String_Theory;
 	Corollary Str_Length_Lt:
 		For all alpha,beta,gamma:SStr,
 			|alpha o beta| = |gamma| and 1 <= |beta| implies 1 + |alpha| <= |gamma|;
-
-(*	Can't negate naturals		
+	
 	Corollary Str_Length_2_1: 
 		For all alpha,beta,gamma:SStr,
 			|alpha o beta| = |gamma| implies |alpha| = |gamma| + (- |beta|);
@@ -419,5 +418,13 @@ Precis String_Theory;
 		For all alpha,beta,gamma:SStr,
 			alpha o beta = gamma implies |gamma| = |alpha| + |beta|;
 
+			
+	Corollary Length_Cat_Natural_Ineq_1:
+		For all alpha, beta: SStr,
+			|alpha| <= |alpha o beta|;
+
+	Corollary Length_Cat_Natural_Ineq_2:
+		For all alpha, beta: SStr,
+			|beta| <= |alpha o beta|;
 			
 end;

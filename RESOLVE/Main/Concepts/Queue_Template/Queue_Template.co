@@ -25,7 +25,7 @@ Concept Queue_Template(type Entry; evaluates Max_Length: Integer);
      ensures Length = (|Q|);
  
     Operation Rem_Capacity(restores Q: Queue): Integer;
-        ensures Rem_Capacity = (Max_Length + (-|Q|);
+        ensures Rem_Capacity = Max_Length + (-|Q|);
  
     Operation Clear(clears Q: Queue);
  
