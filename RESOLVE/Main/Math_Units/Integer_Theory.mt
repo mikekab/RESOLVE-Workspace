@@ -221,7 +221,7 @@ Corollary LTE_6:
 Corollary LTE_6_def: 
 	For all l,m,n:Z,
 	For all p:B,
-		(l + n <= m + n) = p implies p = (l <= m);
+		(l + n <= m + n) = (l <= m);
 
 Corollary LTE_8:
 	For all m,n:Z,
@@ -492,10 +492,6 @@ Corollary I25_2:
 	Theorem Nested_Subt_3:	
 		For all i,j,k:Z,	
 			(i + j) + (-i + k) = j + k;
-	
-	Theorem Nested_Subt_4:	
-		For all i,j,k:Z,	
-			(i + j) + (k + -j) = i + k;
 			
 	Theorem Negated_Interval_1:
 		For all i,j:Z,
@@ -504,6 +500,10 @@ Corollary I25_2:
 	Theorem Positive_Difference:
 		For all i,j: Z,
 			i <= j implies 0 <= j + (-i);
+			
+	Theorem Not_Equal_Primary:
+		For all i,j: Z,
+			(not(i = j)) = ((i <= j) = (i + 1 <= j));
 
     Definition (i: Z) ** (j: Z) : Z;
 

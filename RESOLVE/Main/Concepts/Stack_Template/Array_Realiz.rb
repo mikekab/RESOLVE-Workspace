@@ -50,6 +50,9 @@ Realization Array_Realiz for Stack_Template;
         correspondence
             Conc.S = Reverse(Iterated_Concatenation_of_Prime_Str(1, S.Top, 
                         lambda(i : Z).(<S.Contents(i)>)));
+                        
+           (* Conc.S = Reverse(Concat_Prime_Str_Interval(
+            	lambda(i : Z).(<S.Contents(i)>), ZSetConB(lambda(i : Z).(1 <= i and i <= S.Top))); *)
 	end;
 
     Procedure Push(alters E: Entry; updates S: Stack);

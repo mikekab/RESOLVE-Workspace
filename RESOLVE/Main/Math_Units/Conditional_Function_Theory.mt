@@ -40,19 +40,96 @@
 Theory Conditional_Function_Theory;
 	uses Integer_Theory;
 
-Definition isBinaryPartitionZ (p1: Z, p2: Z) : B;
+Definition unionMakesZ (p1: Z, p2: Z) : B;
 (* isBinaryPartition is automatically generated
-Theorem isBinaryPartitionZ_Def:
+Theorem unionMakesZ_Def:
 	For all f: Z->B,
 	For all x,y:Z, 	
-		f(x) and not(f(y)) implies isBinaryPartitionZ(x,y)
+		f(x) and not(f(y)) implies unionMakesZ(x,y)
 *)
 		
 Theorem CombineParts_Z_Dom:
 	For all f,g: Z -> Entity,
 	For all p1,p2: Z,
-		isBinaryPartitionZ(p1,p2) and f(p1) = g(p1) and f(p2) = g(p2) implies
+		(unionMakesZ(p1,p2) and f(p1) = g(p1) and f(p2) = g(p2)) implies
 			f = g;
 
+--- + Sets
+Definition ZSet:Powerset(Z);
+Definition ZSetCons(x:Z):ZSet; --auto with P(x) in VC SuchThat(For all x:Z,(x /= S.Top + 1) : Powerset(Z)
+Definition isSubsetOrEq:ZSet * ZSet -> B;
+Definition isElem: Z * ZSet -> B;
+Theorem isSubsetOrEqDef:
+	For all i,x,y:Z,
+		isElem(i,ZSetCons(x)) implies isElem(i,ZSetCons(y)) = isSubsetOrEq(ZSetCons(x),ZSetCons(y));
+		
+Definition FR(f:Z->(R:MType),s:ZSet):Z->R; -- partial if s /= Z
 
+Theorem FR_Cons:
+	For all F,G: Z->Entity,
+	For all x: Z, -- using fact this must be the arg of ZSetCons to ensure it represents a set.
+	For all s:ZSet,	
+		ZSetCons(x) = s and F(x) = G(x) implies FR(F,s) = FR(G,s);
+Definition Union_Z(s1:ZSet, s2:ZSet): B;
+-- Union & FR may be auto generated
+Theorem CombineParts_Union_FR:
+	For all s1,s2:ZSet,
+	For all f:Z->Entity,
+	For all g:Z->Entity,
+		Union_Z(s1,s2) and FR(f,s1) = FR(g,s1) and FR(f,s2) = FR(g,s2) implies f = g; 
+		
+Theorem CombineParts_Union_Without_FR:
+	For all x1,x2:Z,
+	For all f:Z->Entity,
+	For all g:Z->Entity,
+		Union_Z(ZSetCons(x1),ZSetCons(x2)) and f(x1) = g(x1) and f(x2) = g(x2) implies f = g; 
+
+Definition ZSetConB(f:Z->B):ZSet;
+Definition ElemOf(i:Z,s:ZSet):B;
+Theorem ZSetConB_Def:
+	For all x:Z,
+	For all f:Z->B,
+		f(x) = ElemOf(x,ZSetConB(f));
+(*
+Theorem Equal_Under_Sub_Domain:
+	For all f,g:Z->B,	
+	(lambda(k:Z).(f(k) implies g(k) ) = lambda(k:Z).(true) = IsSubsetOrEq(ZSetConsB(f),ZSetConsB(g));		
+
+Theorem FR_With_ConditionalSet:
+	For all a,b:Z->B,
+	For all f,g:Z->Entity,
+		FR(f,ZSetConB(a)) = FR(g,ZSetConB(b)) = (lambda(k:Z).(a(k) implies b(k)) = lambda(k:Z).(true));
+*)	
+Theorem FR_Def:
+	For all f,g: Z -> Entity,
+	For all c: Z -> B,
+	For all x: Z,	
+		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and c(x) implies f(x) = g(x);	
+		
+Theorem FR_Def_2:
+	For all f,g: Z -> Entity,
+	For all c: Z -> B,
+	For all x: Z,	
+	For all e: Entity,
+		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and f(x) = e implies (c(x) and (g(x) = e)) = c(x);	
+
+Theorem FR_Def_3:
+	For all f,g: Z -> Entity,
+	For all x: Z,	
+	For all e: Entity,
+		FR(f,ZSetCons(x)) = FR(g,ZSetCons(x)) implies f(x) = g(x);	
+
+
+-- Entering some simple logic theory that may be built in later.
+
+Theorem False_1:
+	not(true) = false;
+	
+Theorem False_2:
+	For all p:B,
+		not(p) = false implies p = true;
+
+Theorem False_3:
+	For all p:B,
+		not(p) = true implies p = false;		
 end Conditional_Function_Theory;
