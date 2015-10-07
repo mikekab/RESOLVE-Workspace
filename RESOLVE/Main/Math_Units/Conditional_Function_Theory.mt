@@ -85,6 +85,18 @@ Theorem CombineParts_Union_Without_FR:
 		Union_Z(ZSetCons(x1),ZSetCons(x2)) and f(x1) = g(x1) and f(x2) = g(x2) implies f = g; 
 
 Definition ZSetConB(f:Z->B):ZSet;
+Definition ZSetComplement: ZSet -> ZSet;
+Definition CF(c:Z->B,f:Z->Entity,g:Z->Entity):Z->Entity;
+Definition ITE: B * Entity * Entity -> Entity;
+Theorem ITE_1:
+	For all x,y:Entity,
+		ITE(true,x,y) = x;
+		
+Theorem ITE_2:
+	For all b: B,
+	For all x,y,z:Entity,
+		ITE(b,x,ITE(b,y,z)) = ITE(b,x,z);
+		
 Definition ElemOf(i:Z,s:ZSet):B;
 Theorem ZSetConB_Def:
 	For all x:Z,
@@ -118,7 +130,7 @@ Theorem FR_Def_3:
 	For all x: Z,	
 	For all e: Entity,
 		FR(f,ZSetCons(x)) = FR(g,ZSetCons(x)) implies f(x) = g(x);	
-
+Definition Union_fZ(f:Z->Entity,g:Z->Entity):Z->Entity;
 
 -- Entering some simple logic theory that may be built in later.
 
