@@ -142,6 +142,10 @@ Precis String_Theory;
 	Corollary Str_Length_1_b:
 		For all alpha:SStr,
 			 (alpha = Empty_String) implies (|alpha| = 0);
+			 
+	Corollary Str_Length_1c:
+		For all alpha:SStr,
+			not(alpha = Empty_String) implies 1 <= |alpha|;
 
 	Corollary Str_Length_2: -- will not introduce |_| on its own, see add_ons at end
 		For all alpha,betax:SStr,
@@ -176,7 +180,7 @@ Precis String_Theory;
 				
 	Corollary Singleton_Str_1:
 		For all p:Prime_Str,
-			p /= Empty_String;
+			not(p = Empty_String);
 
 	Corollary Singleton_Str_2:
 		For all p:Prime_Str,
@@ -281,7 +285,22 @@ Precis String_Theory;
 		For all alpha:SStr,
 		For all m,n:Z,
 			|Prt_Btwn(m,n,alpha)| = max( min(n,|alpha|) + -( max(m,0))  ,0);
+			
+	Corollary Prt_Btwn_6a:
+		For all alpha:SStr,
+		For all i,m,n:N,
+			(|Prt_Btwn(m,n,alpha)| = i and m <= n <= |alpha|) implies i = n + (-m);
 
+	Corollary Prt_Btwn_6b: -- 6a without negatives
+		For all alpha:SStr,
+		For all i,m,n:N,
+			(|Prt_Btwn(m,n,alpha)| = i and m <= n <= |alpha|) implies i <= n;
+			
+	Corollary Prt_Btwn_6c: -- 6a without negatives
+		For all alpha:SStr,
+		For all i,m,n:N,
+			(m + |Prt_Btwn(m,n,alpha)| = i and m <= n <= |alpha|) implies i = n;
+		
 	Corollary Prt_Btwn_7:
 		For all alpha:SStr,
 		For all m,n:Z,
@@ -342,6 +361,11 @@ Precis String_Theory;
 		For all alpha:SStr,
 		For all n:Z,
 			Reverse(Prt_Btwn(n,n+1,alpha)) = Prt_Btwn(n,n+1,alpha);
+			
+	-- We won't always have "+"
+	Corollary Prt_Btwn_12_c:
+		For all alpha:SStr,
+			Reverse(Prt_Btwn(0,1,alpha)) = Prt_Btwn(0,1,alpha);
 (*
 -- causes contrad
 	Corollary Prt_Btwn_13_a:
@@ -377,6 +401,10 @@ Precis String_Theory;
 		For all alpha:SStr,
 		For all n:Z,
 			1 <= n + 1 <= |alpha| implies <DeString(Prt_Btwn(n, n + 1, alpha))> = Prt_Btwn(n,n+1,alpha);
+			
+	Corollary DeString_2_no_addition_no_Length:
+		For all alpha:SStr,
+			not(alpha = Empty_String) implies <DeString(Prt_Btwn(0, 1, alpha))> = Prt_Btwn(0,1,alpha);
 			
     Definition Iterated_Concatenation(m : Z, n : Z, F: Z->SStr): SStr;
 	
