@@ -87,6 +87,41 @@ Theorem CombineParts_Union_Without_FR:
 Definition ZSetConB(f:Z->B):ZSet;
 Definition ZSetComplement: ZSet -> ZSet;
 Definition CF(c:Z->B,f:Z->Entity,g:Z->Entity):Z->Entity;
+Theorem CF_Implicit_Def_1:
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+	For all x: Z,	
+		CF(c,f,g) = h and c(x) implies h(x) = f(x);
+
+Theorem CF_Implicit_Def_2:
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+	For all x: Z,	
+		CF(c,f,g) = h and not(c(x)) implies h(x) = g(x);
+		
+Corollary CF_1:
+	For all c: Z->B,
+	For all f: Z->Entity,
+		CF(c,f,f) = f;
+(*		
+Corollary CF_2_a:
+	For all c,d: Z->B,
+	For all f,g,h: Z->Entity,
+		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and CF(d,f,g) = h implies h = CF(lambda(i:Z).(c(i) or d(i)),f,g);
+		
+Corollary CF_2_b:
+	For all c,d: Z->B,
+	For all f,g,h: Z->Entity,
+		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and CF(d,f,g) = h implies h = CF(lambda(i:Z).(not(c(i)) and d(i)));
+		
+Corollary CF_3:
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+		(f = CF(c,g,h)) =
+		 ((FR(g,ZSetConB(c)) = 
+		   FR(f,ZSetConB(c)) 
+				and (FR(h, ZSetConB(lambda(i:Z).(not(c(i))))) = (FR(f, ZSetConB(lambda(i:Z).(not(c(i))))))))));
+)*				
 Definition ITE: B * Entity * Entity -> Entity;
 Theorem ITE_1:
 	For all x,y:Entity,

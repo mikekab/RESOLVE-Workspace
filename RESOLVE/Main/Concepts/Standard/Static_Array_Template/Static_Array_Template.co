@@ -13,14 +13,14 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
 
     Operation Swap_Entry(updates A: Static_Array; updates E: Entry; evaluates i: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound;
-        (* ensures E = #A(i) and A = lambda (j : Z).(
+         ensures E = #A(i) and A = lambda (j : Z).(
                     {{#E if j = i;
                     #A(j) otherwise;}});
-         *)
+         
         
          --ensures E = #A(i) and A = lambda(j:Z).(ITE((i = j), E, #A(j)));
          
-         ensures E = #A(i) and A = CF(lambda(j:Z).(i = j),lambda(j:Z).(E),#A);
+         --ensures E = #A(i) and A = CF(lambda(j:Z).(i = j),lambda(j:Z).(E),#A);
                   
     Operation Swap_Two_Entries(updates A: Static_Array; evaluates i, j: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound and
@@ -32,10 +32,11 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
 
     Operation Assign_Entry(updates A: Static_Array; evaluates Exp: Entry; evaluates i: Integer);
         requires Lower_Bound <= i  and i <= Upper_Bound;
-        ensures A = lambda (j : Z).(
+        (* ensures A = lambda (j : Z).(
                     {{Exp if j = i;
-                    #A(j) otherwise;}});
-
+                    #A(j) otherwise;}}); *)
+        ensures A = CF(lambda(j:Z).(j = i), lambda(j:Z).(Exp), #A);
+		
     Operation Entry_Replica(restores A: Static_Array; evaluates i: Integer): Entry;
         requires Lower_Bound <= i  and i <= Upper_Bound;
         ensures Entry_Replica = A(i);
