@@ -27,7 +27,7 @@ Concept Globally_Bounded_List_Template(type Entry);
 		requires not(P.Rem = Empty_String);
 		ensures P.Prec = #P.Prec and
 				Entry_Removed = DeString(Prt_Btwn(0, 1, #P.Rem)) and
-				P.Rem =  Prt_Btwn(1, |#P.Rem| + (-1), #P.Rem);
+				P.Rem =  Prt_Btwn(1, |#P.Rem|, #P.Rem);
 
 	Oper Advance_to_End( upd P: List );
 		ensures P.Prec = #P.Prec o #P.Rem and 
