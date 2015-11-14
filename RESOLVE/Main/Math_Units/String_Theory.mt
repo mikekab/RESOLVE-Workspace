@@ -487,6 +487,23 @@ Precis String_Theory;
 	Corollary Is_Substring_Primes_1:
 		For all p,s:Prime_Str,		
 			(p = s) = Is_Substring(p,s);
+
+	Definition Stringify_Z_Entity: (Z->Entity)->(Z->Prime_Str);
+	
+	Theorem Stringify_Z_Entity_1: -- (Stringify_Z_Entity(F))(i) = <F(i)>
+		For all F:Z->Entity,
+		For all G:Z->Prime_Str,
+		For all e:Entity,
+		For all i:Z,
+			Stringify_Z_Entity(F) = G and
+			F(i) = e implies
+				G(i) = <e>;
+
+	Theorem Z_Entity_Stringify_Composition:
+		For all i:Z,
+		For all F,G:Z->Entity,
+			Eq_Except_At(F,G,i) =
+			Eq_Except_At(Stringify_Z_Entity(F),Stringify_Z_Entity(G),i) ;
 			
     Definition Iterated_Concatenation(m : Z, n : Z, F: Z->SStr): SStr;
 	
@@ -530,7 +547,21 @@ Precis String_Theory;
 		For all F: Z->Prime_Str,	
 			Iterated_Concatenation(m, n + 1, F) = 
 			Iterated_Concatenation(m, n, F) o F(n + 1);
+
+	Theorem Iterated_Concat_Eq_On_Interval_1:
+		For all m, n, i: Z,
+		For all F,G: Z->Prime_Str,
+		Eq_Except_At(F,G,i) and
+		(m <= n + 1 <=i) implies
+			Iterated_Concatenation(m,n,F) = Iterated_Concatenation(m,n,G);
 			
+	Theorem Iterated_Concat_Eq_On_Interval_2:
+		For all m, n, i: Z,
+		For all F,G: Z->Prime_Str,
+		Eq_Except_At(F,G,i) and
+		(i + 1 <= m <= n) implies
+			Iterated_Concatenation(m,n,F) = Iterated_Concatenation(m,n,G);
+						
 	Corollary Not_Eq_Str_Length:
 		For all S,T:SStr,
 			|S| /= |T| implies S /= T;
