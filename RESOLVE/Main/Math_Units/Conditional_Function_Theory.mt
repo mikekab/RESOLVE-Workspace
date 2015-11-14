@@ -40,143 +40,176 @@
 Theory Conditional_Function_Theory;
 	uses Integer_Theory;
 
-Definition unionMakesZ (p1: Z, p2: Z) : B;
-(* isBinaryPartition is automatically generated
-Theorem unionMakesZ_Def:
-	For all f: Z->B,
-	For all x,y:Z, 	
-		f(x) and not(f(y)) implies unionMakesZ(x,y)
-*)
-		
-Theorem CombineParts_Z_Dom:
-	For all f,g: Z -> Entity,
-	For all p1,p2: Z,
-		(unionMakesZ(p1,p2) and f(p1) = g(p1) and f(p2) = g(p2)) implies
-			f = g;
-
 --- + Sets
 Definition ZSet:Powerset(Z);
-Definition ZSetCons(x:Z):ZSet; --auto with P(x) in VC SuchThat(For all x:Z,(x /= S.Top + 1) : Powerset(Z)
-Definition isSubsetOrEq:ZSet * ZSet -> B;
-Definition isElem: Z * ZSet -> B;
-Theorem isSubsetOrEqDef:
-	For all i,x,y:Z,
-		isElem(i,ZSetCons(x)) implies isElem(i,ZSetCons(y)) = isSubsetOrEq(ZSetCons(x),ZSetCons(y));
-		
-Definition FR(f:Z->(R:MType),s:ZSet):Z->R; -- partial if s /= Z
-
-Theorem FR_Cons:
-	For all F,G: Z->Entity,
-	For all x: Z, -- using fact this must be the arg of ZSetCons to ensure it represents a set.
-	For all s:ZSet,	
-		ZSetCons(x) = s and F(x) = G(x) implies FR(F,s) = FR(G,s);
-Definition Union_Z(s1:ZSet, s2:ZSet): B;
--- Union & FR may be auto generated
-Theorem CombineParts_Union_FR:
-	For all s1,s2:ZSet,
-	For all f:Z->Entity,
-	For all g:Z->Entity,
-		Union_Z(s1,s2) and FR(f,s1) = FR(g,s1) and FR(f,s2) = FR(g,s2) implies f = g; 
-		
-Theorem CombineParts_Union_Without_FR:
-	For all x1,x2:Z,
-	For all f:Z->Entity,
-	For all g:Z->Entity,
-		Union_Z(ZSetCons(x1),ZSetCons(x2)) and f(x1) = g(x1) and f(x2) = g(x2) implies f = g; 
-
+Definition ZSetCons(x:Z):ZSet;		
 Definition ZSetConB(f:Z->B):ZSet;
-Definition ZSetComplement: ZSet -> ZSet;
+Definition ZSetComplement(s:ZSet): ZSet;
+Definition Empty_Set: ZSet;
+(*
+	read "ZSetCons(x) = ZSetConB(c)" as ZSetCons(x) is set of all values x that satisfy c"
+*)
+Theorem Set_Constructor_False:
+	For all x:Z,
+	For all c:Z->B,
+		(ZSetCons(x) = ZSetConB(c) and not(c(x))) = (ZSetCons(x) = Empty_Set);
+-- it should follow that ZSetCons(x) = ZSetConB(c) implies (c(x) or ZSetConB(c) = Empty_Set)
+				
+Theorem Set_Constructor_Equality: -- for single point functions, (arrays use these)
+	For all x,y:Z,
+	For all c:Z->B,
+		ZSetCons(x) = ZSetConB(c) and c(x) = (x = y) implies ZSetCons(x) = ZSetCons(y);
+
+-- Can't make this iff, consider f = g, and c(x) = not(d(x))
+Theorem Condition_Equality:
+	For all c,d: Z->B,
+	For all f,g,h: Z->Entity,
+	For all x,y: Z,
+		ZSetCons(x) = ZSetConB(c) and
+		ZSetCons(y) = ZSetConB(d) and
+		c(x) = d(x) and
+		c(y) = d(y) implies
+			c = d;				
 Definition CF(c:Z->B,f:Z->Entity,g:Z->Entity):Z->Entity;
+
+	
 Theorem CF_Implicit_Def_1:
 	For all c: Z->B,
 	For all f,g,h: Z->Entity,
-	For all x: Z,	
-		CF(c,f,g) = h and c(x) implies h(x) = f(x);
+	For all i: Z,	
+		CF(c,f,g) = h and c(i) implies h(i) = f(i);
 
 Theorem CF_Implicit_Def_2:
 	For all c: Z->B,
 	For all f,g,h: Z->Entity,
-	For all x: Z,	
-		CF(c,f,g) = h and not(c(x)) implies h(x) = g(x);
+	For all i: Z,	
+		CF(c,f,g) = h and not(c(i)) implies h(i) = g(i);
 		
 Corollary CF_1:
 	For all c: Z->B,
 	For all f: Z->Entity,
 		CF(c,f,f) = f;
-(*		
-Corollary CF_2_a:
-	For all c,d: Z->B,
-	For all f,g,h: Z->Entity,
-		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and CF(d,f,g) = h implies h = CF(lambda(i:Z).(c(i) or d(i)),f,g);
-		
-Corollary CF_2_b:
-	For all c,d: Z->B,
-	For all f,g,h: Z->Entity,
-		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and CF(d,f,g) = h implies h = CF(lambda(i:Z).(not(c(i)) and d(i)));
-		
+	
+Corollary CF_2a:
+	For all c,d,e: Z->B,
+	For all f,g,h: Z->MType,
+	For all x,y: Z,
+		-- f |^ {x : c(x)} = g |^ {x : c(x)} implies CF(d,f,g) = CF(lambda(i:Z).(c(i) or d(i)),f,g);
+		ZSetConB(c) = ZSetCons(x) and 
+		f(x) = g(x) and
+		CF(c,f,g) = h and -- best to make sure f and g are args of a CF first 
+		ZSetConB(e) = ZSetCons(y) and 
+		e(y) = (c(y) or d(y)) implies
+			h = CF(e,f,g);
+
 Corollary CF_3:
 	For all c: Z->B,
+	For all x,y: Z,
 	For all f,g,h: Z->Entity,
 		(f = CF(c,g,h)) =
-		 ((FR(g,ZSetConB(c)) = 
-		   FR(f,ZSetConB(c)) 
-				and (FR(h, ZSetConB(lambda(i:Z).(not(c(i))))) = (FR(f, ZSetConB(lambda(i:Z).(not(c(i))))))))));
-)*				
-Definition ITE: B * Entity * Entity -> Entity;
-Theorem ITE_1:
-	For all x,y:Entity,
-		ITE(true,x,y) = x;
+		(
+			ZSetConB(c) = ZSetCons(x) and
+			f(x) = g(x) and
+			ZSetCons(y) = ZSetComplement(ZSetCons(x)) and
+			f(y) = h(y)
+		);		
 		
-Theorem ITE_2:
-	For all b: B,
-	For all x,y,z:Entity,
-		ITE(b,x,ITE(b,y,z)) = ITE(b,x,z);
+Corollary CF_3_No_Complement:
+	For all c,d: Z->B,
+	For all x,y: Z,
+	For all f,g,h: Z->Entity,
+		(f = CF(c,g,h)) =
+		(
+			ZSetConB(c) = ZSetCons(x) and
+			f(x) = g(x) and
+			ZSetConB(d) = ZSetCons(y) and
+			d(y) = not(c(y)) and
+			f(y) = h(y)
+		);	
+
+-- Specialized.  Like argument in CF nested .
+
+Corollary CF_Special_1:
+	For all c,d,e: Z->B,
+	For all x,y: Z,
+	For all f,g: Z->Entity,
+		(CF(c,f,CF(d,f,g)) = CF(e,f,g)) =
+		(
+			ZSetCons(x) = ZSetConB(c) and   -- {x:Z | For all x:Z, c(x)}
+			ZSetCons(y) = ZSetConB(e) and
+			e(y) = ((c(y) and d(y)) = (c(y) = d(y))) -- For all k:Z, e(k) = c(k) or d(k)
+		);
+Corollary CF_Special_1_with_or:
+	For all c,d,e: Z->B,
+	For all x,y: Z,
+	For all f,g: Z->Entity,
+		(CF(c,f,CF(d,f,g)) = CF(e,f,g)) =
+		(
+			ZSetCons(x) = ZSetConB(c) and   -- {x:Z | For all x:Z, c(x)}
+			ZSetCons(y) = ZSetConB(e) and
+			-- y is the set that s.t. c(y) or d(y)
+			e(y) = c(y) or d(y) -- For all k:Z, e(k) = c(k) or d(k)
+		);
+ Corollary Special_Interval_Expansion:
+	For all i,j,x:Z,
+		(((i <= j) and (j <= x)) or (i <= j and j <= x + 1)) = (i <= j and j <= x + 1);	
+		
+Theorem Special_Logic_1:
+	For all p:B,
+		p or true; 	
+		
+Theorem Special_Logic_2:
+	For all p:B,
+		(p or false) = p; 
+							
+Corollary CF_4_a1: -- Without FR
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+	For all x:Z,
+		(ZSetCons(x) = ZSetConB(c) and f(x) = g(x)) implies CF(c,f,h) = CF(c,g,h);
+
+Corollary CF_4_b1: -- Without FR
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+	For all x,y:Z,
+		ZSetCons(x) = ZSetConB(c) and 
+		ZSetCons(y) = ZSetComplement(ZSetCons(x)) and
+		g(y) = h(y) implies
+		CF(c,f,h) = CF(c,f,g);
+		
+Corollary CF_13_a:
+	For all c,d: Z->B,
+	For all f,g,h,k: Z->Entity,
+	For all x:Z,
+		-- (for all y: d(y) implies c(y)) implies CF(c,f,CF(d,g,h)) = CF(c,f,h)
+		ZSetConB(d) = ZSetCons(x) and
+		d(x) = c(x) and CF(c,f,CF(d,g,h)) = k implies
+			k = CF(c,f,h);		--d(x) is true by definition., no need for implies.
+
+Corollary CF_13_b:
+	For all c,d: Z->B,
+	For all f,g,h,k: Z->Entity,
+	For all x:Z,
+		-- (for all y: d(y) implies c(y)) implies CF(c,f,CF(d,g,h)) = CF(c,f,h)
+		ZSetConB(d) = ZSetCons(x) and
+		(d(x) = not(c(x))) and CF(c,f,CF(d,g,h)) = k implies
+			k = CF(c,f,g);		
+
+Corollary CF_14_a:
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+		CF(c,f,CF(c,g,h)) = CF(c,f,h);		
+		
+Corollary CF_14_b: -- Bill may cover this with Cor. 9
+	For all c: Z->B,
+	For all f,g,h: Z->Entity,
+		CF(c,CF(c,f,g),h) = CF(c,f,h);
 		
 Definition ElemOf(i:Z,s:ZSet):B;
 Theorem ZSetConB_Def:
 	For all x:Z,
 	For all f:Z->B,
 		f(x) = ElemOf(x,ZSetConB(f));
-(*
-Theorem Equal_Under_Sub_Domain:
-	For all f,g:Z->B,	
-	(lambda(k:Z).(f(k) implies g(k) ) = lambda(k:Z).(true) = IsSubsetOrEq(ZSetConsB(f),ZSetConsB(g));		
 
-Theorem FR_With_ConditionalSet:
-	For all a,b:Z->B,
-	For all f,g:Z->Entity,
-		FR(f,ZSetConB(a)) = FR(g,ZSetConB(b)) = (lambda(k:Z).(a(k) implies b(k)) = lambda(k:Z).(true));
-*)	
-Theorem FR_Def:
-	For all f,g: Z -> Entity,
-	For all c: Z -> B,
-	For all x: Z,	
-		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and c(x) implies f(x) = g(x);	
-		
-Theorem FR_Def_2:
-	For all f,g: Z -> Entity,
-	For all c: Z -> B,
-	For all x: Z,	
-	For all e: Entity,
-		FR(f,ZSetConB(c)) = FR(g,ZSetConB(c)) and f(x) = e implies (c(x) and (g(x) = e)) = c(x);	
 
-Theorem FR_Def_3:
-	For all f,g: Z -> Entity,
-	For all x: Z,	
-	For all e: Entity,
-		FR(f,ZSetCons(x)) = FR(g,ZSetCons(x)) implies f(x) = g(x);	
-Definition Union_fZ(f:Z->Entity,g:Z->Entity):Z->Entity;
-
--- Entering some simple logic theory that may be built in later.
-
-Theorem False_1:
-	not(true) = false;
-	
-Theorem False_2:
-	For all p:B,
-		not(p) = false implies p = true;
-
-Theorem False_3:
-	For all p:B,
-		not(p) = true implies p = false;		
 end Conditional_Function_Theory;

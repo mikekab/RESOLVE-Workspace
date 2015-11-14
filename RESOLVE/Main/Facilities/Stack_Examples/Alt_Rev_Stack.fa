@@ -1,6 +1,6 @@
 -- an example of a stack with an enhancement and read/write
 Facility Alt_Rev_Stack;
-    Facility Stack_Fac is Stack_Template(Integer, 4)
+    Facility Stack_Fac is Stack_Template(Integer, 5)
     	    realized by Array_Realiz
     	enhanced by Reading_Capability
 	        realized by Obvious_Reading_Realiz(Std_Integer_Fac.Read)

@@ -134,7 +134,11 @@ Theorem I7:
 Theorem I_7_Def:
 	For all i,j,k:Z,
 		(i + j) + k = i + (j + k);
-	
+
+Theorem I_7a_Def:
+	For all i,j,k:Z,
+		(i + j) + k = j + (i + k);
+					
 Theorem I8:
 	Is_Left_Identity_for(op +, 0);
 	
@@ -202,7 +206,7 @@ Corollary LTE_1: -- Is_Transitive(op<=);
 
 Corollary LTE_2: -- Is_Antisymmetric(<=)
     For all m,n:Z,
-    	m <= n and n <= m implies m = n;
+    	(m <= n and n <= m) = (m = n);
 
 Corollary LTE_3: -- Is_Total(<=)
     For all m,n:Z,
@@ -213,15 +217,18 @@ Corollary LTE_3a: --Is_Reflexive(<=) -- implied by Is_Total
     	n <= n;
 
 Corollary LTE_4:
-    	Is_Total_Ordering(op <=);
+    	Is_Total_Ordering(op <=); -- total_pre(trans, total) and antisymm
     	
 Corollary LTE_6:
 	Is_Preserved_by(op +,op <=);
 	
 Corollary LTE_6_def: 
 	For all l,m,n:Z,
-	For all p:B,
 		(l + n <= m + n) = (l <= m);
+		
+Corollary LTE_6_b:
+	For all i,j,k,l:Z,
+			i + j <= k and l <= j implies i + l <= k;
 
 Corollary LTE_8:
 	For all m,n:Z,
@@ -349,7 +356,8 @@ Corollary I25_2:
 *)			
 	Theorem Distribution_Unary_Minus_Over_Addition:
 		For all i,j,k:Z,
-			-(i + j) = k implies k = (-i) + (-j);
+			---(i + j) = k implies k = (-i) + (-j);
+			-(i + j) = (-i) + (-j);
 			
 	Theorem Addition_Over_Equality: -- written to remove negatives
 		For all i,j,k:Z,
@@ -375,11 +383,7 @@ Corollary I25_2:
     	For all m,n,p:Z,		
     		 m <= n and n < p implies m + 1 <= p;
 *)
-    		 			
-    Corollary LTE_6_b:
-		For all i,j,k,l:Z,
-			i + j <= k and l <= j implies i + l <= k;
-			
+    		 						
 	Theorem Zero_LTE_One:
 		0 <= 1;
 
@@ -423,7 +427,7 @@ Corollary I25_2:
     Theorem Not_LTE:
     	For all i,j:Z,
     	For all p:B,
-    		not(i <= j) = p implies p = (j + 1 <= i);
+    		not(i <= j) = (j + 1 <= i);
 
     Theorem Not_LT:
     	For all i,j:Z,
@@ -456,10 +460,6 @@ Corollary I25_2:
 	Theorem GT_implies_GTE:
     	For all i,j:Z,
     		(i > j) implies (j <= i);
-
-	Theorem Not_LTE_Implies:
-		For all i,j:Z,
-			not(i<=j) implies j + 1 <= i;
 					
 	Theorem Add_GTE_Zero_GTE_a:
    		For all i,j,k:Z,
@@ -480,7 +480,7 @@ Corollary I25_2:
 	Theorem LTE_Substitution:
 		For all i,j,k:Z,	
 			i <= j and k <= i implies k <= j;
-			
+
 	Theorem Nested_Subt_1:
 		For all i,j:Z,
 			(i + j) + (- j) = i;
@@ -492,23 +492,36 @@ Corollary I25_2:
 	Theorem Nested_Subt_3:	
 		For all i,j,k:Z,	
 			(i + j) + (-i + k) = j + k;
-			
-	Theorem Negated_Interval_1:
-		For all i,j:Z,
-			not (i <= j and j <= i) implies not (i = j);
-			
+					
 	Theorem Positive_Difference:
 		For all i,j: Z,
 			i <= j implies 0 <= j + (-i);
 			
-	Theorem Not_Equal_Primary:
+	Theorem Not_Equal_Primary_a: -- this is a way to express /= using + and <=
 		For all i,j: Z,
 			(not(i = j)) = ((i <= j) = (i + 1 <= j));
-
+	
     Definition (i: Z) ** (j: Z) : Z;
 
     Definition (i: Z) / (j: Z) : Z;
 
     Definition (i: Z) mod (j: Z) : Z;
     
+    Definition Eq_Except_At(F:Z->Entity,G:Z->Entity,i:Z):B;
+    
+    Theorem Except_At_1:
+    	For all F,G:Z->Entity,
+    	For all i:Z,
+    		Eq_Except_At(F,G,i) and F(i) = G(i) implies F = G;
+    		
+    Theorem Except_At_2:
+    	For all F,G:Z->Entity,
+    	For all i:Z,
+    		Eq_Except_At(F,G,i) = Eq_Except_At(G,F,i);
+    		
+    Theorem Except_At_3:
+    	For all F,G,H:Z->Entity,
+    	For all i:Z,
+    		Eq_Except_At(F,G,i) and Eq_Except_At(G,H,i) implies Eq_Except_At(F,H,i);
+   -- add mod theorems 
 end Integer_Theory;

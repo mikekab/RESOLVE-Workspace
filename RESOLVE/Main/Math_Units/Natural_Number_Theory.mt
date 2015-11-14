@@ -47,6 +47,7 @@ Categorical Definition introduces
 related by
 	Is_Monogeneric_for(N, 0, suc);
 	
+	
 Inductive Definition (m : N) + (n : N) : N is
 	(i) m + 0 = m;
 	(ii) m + suc(n) = suc(m + n);
@@ -98,7 +99,31 @@ Definition 9 : N = suc(8);
 Corollary Def1_1:
 	For all n : N,
 		suc(n) = n + 1;
-			
+		
+Corollary Def2_a:
+	1 + 1 = 2;
+
+Corollary Def3_a:
+	1 + 2 = 3;
+	
+Corollary Def4a:
+	1 + 3 = 4;
+	
+Corollary Def5a:
+	1 + 4 = 5;
+	
+Corollary Def6a:
+	1 + 5 = 6;
+	
+Corollary Def7a:
+	1 + 6 = 7;
+	
+Corollary Def8a:
+	1 + 7 = 8;
+	
+Corollary Def9a:
+	1 + 8 = 9;
+				
 (*Theorem N7:
 	For all S : Powerset(N),
 		({0, 1} is_subset_of S and
@@ -136,12 +161,14 @@ Theorem NN_LTE_Addition:
 	For all m,n:N,
 		m <= m + n;
 	
-Theorem Not_LTE_Z_1_0:
+Theorem Not_LTE_1:
 	For all n:N,
-		not(1 <= n) implies n = 0;
+		not(1 <= n) = (n = 0);
 		
 Theorem Zero_min:
 	For all n:N,
 		0 <= n;
-	
+		
+--Definition monus (m:N, n:N) : N;	
+
 end Natural_Number_Theory;

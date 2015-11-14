@@ -13,15 +13,9 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
 
     Operation Swap_Entry(updates A: Static_Array; updates E: Entry; evaluates i: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound;
-         ensures E = #A(i) and A = lambda (j : Z).(
-                    {{#E if j = i;
-                    #A(j) otherwise;}});
-         
-        
-         --ensures E = #A(i) and A = lambda(j:Z).(ITE((i = j), E, #A(j)));
-         
-         --ensures E = #A(i) and A = CF(lambda(j:Z).(i = j),lambda(j:Z).(E),#A);
-                  
+          ensures E = #A(i) and #E = A(i) and
+          		Eq_Except_At(lambda(k:Z).(#A(k)),lambda(k:Z).(A(k)),i);   
+          		      
     Operation Swap_Two_Entries(updates A: Static_Array; evaluates i, j: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound and
                  Lower_Bound <= j  and j <= Upper_Bound;
@@ -32,10 +26,11 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
 
     Operation Assign_Entry(updates A: Static_Array; evaluates Exp: Entry; evaluates i: Integer);
         requires Lower_Bound <= i  and i <= Upper_Bound;
-        (* ensures A = lambda (j : Z).(
+        (*ensures A = lambda (j : Z).(
                     {{Exp if j = i;
                     #A(j) otherwise;}}); *)
-        ensures A = CF(lambda(j:Z).(j = i), lambda(j:Z).(Exp), #A);
+        ensures A = CF(lambda(j:Z).(j = i),lambda(j:Z).(Exp), lambda(j:Z).(#A(j)));
+        --ensures A = CFS(ZSetCons(i), lambda(j:Z).(Exp), lambda(j:Z).(#A(j)));
 		
     Operation Entry_Replica(restores A: Static_Array; evaluates i: Integer): Entry;
         requires Lower_Bound <= i  and i <= Upper_Bound;

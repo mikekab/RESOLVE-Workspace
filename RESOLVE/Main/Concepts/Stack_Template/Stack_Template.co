@@ -9,9 +9,9 @@ Concept Stack_Template(type Entry; evaluates Max_Depth: Integer);
 	end;
 
     Operation Push(alters E: Entry; updates S: Stack); 
-        requires 1 + |S| <= Max_Depth;
+        requires 1 + |S| <= Max_Depth; 
         ensures  S = <#E> o #S;
-
+         
     Operation Pop(replaces R: Entry; updates S: Stack);
         requires 1 <= |S|;
         ensures #S = <R> o S;
