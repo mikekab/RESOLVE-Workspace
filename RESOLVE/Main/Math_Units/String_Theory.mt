@@ -536,17 +536,11 @@ Precis String_Theory;
 		For all F:Z->Prime_Str,
 			|Iterated_Concatenation(n,n,F)| = 1;
 
-	Theorem Iterated_Concat_of_Prime_Str_Length_2a:
+	Theorem Iterated_Concat_of_Prime_Str_Length_3:
 		For all m,n,i:Z,
 		For all F:Z->Prime_Str,
-			m <= n and |Iterated_Concatenation(m,n,F)| = i implies i = m + (-n);	
-					
-	Theorem Iterated_Concat_of_Prime_Str_Length_3:	
-		For all i,j:Z,
-		For all n:N,
-		For all F:Z->Prime_Str,
-			j + 1 <= i and |Iterated_Concatenation(i,j,F)| = n implies n = (1 + (- i)) + j;
-			
+			m <= n and |Iterated_Concatenation(m,n,F)| = i implies i = 1 + m + (-n);	
+								
 	Theorem Iterated_Concat_of_Prime_Str_Length_4_a:
 		For all i,j,k:Z,
 		For all F:Z->Prime_Str,
