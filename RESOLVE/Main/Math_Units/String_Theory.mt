@@ -504,7 +504,24 @@ Precis String_Theory;
 		For all F,G:Z->Entity,
 			Eq_Except_At(F,G,i) =
 			Eq_Except_At(Stringify_Z_Entity(F),Stringify_Z_Entity(G),i) ;
-			
+	
+	Definition Stringify_Mod_Z_Entity: (Z * (Z->Entity))->(Z->Prime_Str);
+	-- (Stringify_Mod_Z_Entity(m,F))(i) = <F(i mod m)>	
+	
+	Theorem Stringify_Mod_Z_Entity_1:
+		For all i,m:Z,
+		For all F,G:Z->Entity,
+		For all e:Entity,
+			Stringify_Mod_Z_Entity(m,F) = G and
+			F(i mod m) = e implies
+				G(i mod m) = <e>;
+				
+	Theorem Mod_Z_Entity_Stringify_Composition:
+		For all i,m:Z,
+		For all F,G:Z->Entity,
+			Eq_Except_At(F,G,i mod m) =
+			Eq_Except_At(Stringify_Z_Entity(F),Stringify_Z_Entity(G),i mod m) ;	
+					
     Definition Iterated_Concatenation(m : Z, n : Z, F: Z->SStr): SStr;
 	
 	Theorem Iterated_Concat_of_Prime_Str_Length_1:
@@ -518,7 +535,12 @@ Precis String_Theory;
 		For all n:Z,
 		For all F:Z->Prime_Str,
 			|Iterated_Concatenation(n,n,F)| = 1;
-			
+
+	Theorem Iterated_Concat_of_Prime_Str_Length_2a:
+		For all m,n,i:Z,
+		For all F:Z->Prime_Str,
+			m <= n and |Iterated_Concatenation(m,n,F)| = i implies i = m + (-n);	
+					
 	Theorem Iterated_Concat_of_Prime_Str_Length_3:	
 		For all i,j:Z,
 		For all n:N,

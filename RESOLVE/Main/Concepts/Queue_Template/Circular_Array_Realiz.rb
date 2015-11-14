@@ -50,7 +50,7 @@ Realization Circular_Array_Realiz for Queue_Template;
                 0 <= Q.Length <= Max_Length;
         correspondence
             Conc.Q = Iterated_Concatenation(Q.Prefront + 1, Q.Prefront + Q.Length, 
-                        lambda(i : Z).(<Q.Contents(i mod Max_Length)>));
+                        Stringify_Mod_Z_Entity(Max_Length, Q.Contents));
 	end;
        
     Procedure Enqueue(alters E: Entry; updates Q: Queue);

@@ -527,5 +527,9 @@ Definition Eq_Except_At(F:Z->Entity,G:Z->Entity,i:Z):B;
     Definition (i: Z) / (j: Z) : Z;
 
     Definition (i: Z) mod (j: Z) : Z;
+    
+    Corollary Mod_1:
+    	For all i,j:N,
+    		i mod j <= j;
    -- add mod theorems 
 end Integer_Theory;
