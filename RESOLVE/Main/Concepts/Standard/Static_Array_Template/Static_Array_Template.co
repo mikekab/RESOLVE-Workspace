@@ -14,19 +14,19 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
     Operation Swap_Entry(updates A: Static_Array; updates E: Entry; evaluates i: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound;
         ensures E = #A(i) and #E = A(i) and 
-        	Eq_Except_At(lambda(k:Z).(#A),lambda(k:Z).(A),i);
+        	Eq_Except_At(lambda(k:Z).(#A(k)),lambda(k:Z).(A(k)),i);
 
     Operation Swap_Two_Entries(updates A: Static_Array; evaluates i, j: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound and
                  Lower_Bound <= j  and j <= Upper_Bound;
         ensures  #A(i) = A(j) and #A(j) = A(i) and  
-        	Eq_Except_At(lambda(k:Z).(#A),lambda(k:Z).(A),i) and
-        	Eq_Except_At(lambda(k:Z).(#A),lambda(k:Z).(A),j);     
+        	Eq_Except_At(lambda(k:Z).(#A(k)),lambda(k:Z).(A(k)),i) and
+        	Eq_Except_At(lambda(k:Z).(#A(k)),lambda(k:Z).(A(k)),j);     
 
     Operation Assign_Entry(updates A: Static_Array; evaluates Exp: Entry; evaluates i: Integer);
         requires Lower_Bound <= i  and i <= Upper_Bound;
 		ensures A(i) = Exp and 
-        	Eq_Except_At(lambda(k:Z).(#A),lambda(k:Z).(A),i);
+        	Eq_Except_At(lambda(k:Z).(#A(k)),lambda(k:Z).(A(k)),i);
         	
     Operation Entry_Replica(restores A: Static_Array; evaluates i: Integer): Entry;
         requires Lower_Bound <= i  and i <= Upper_Bound;
