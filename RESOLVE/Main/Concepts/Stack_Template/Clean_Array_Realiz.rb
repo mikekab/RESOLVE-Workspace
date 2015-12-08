@@ -10,7 +10,7 @@ Realization Clean_Array_Realiz for Stack_Template;
             0 <= S.Top <= Max_Depth;
         correspondence
             Conc.S = Reverse(Iterated_Concatenation(1, S.Top, 
-                        lambda(i : Z).(<S.Contents(i)>)));
+                    Stringify_Z_Entity(S.Contents)));
 	end;
 
     Procedure Push(alters E: Entry; updates S: Stack);

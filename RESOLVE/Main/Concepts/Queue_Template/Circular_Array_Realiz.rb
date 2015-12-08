@@ -38,7 +38,7 @@
  *)
 
 Realization Circular_Array_Realiz for Queue_Template;
-    
+    uses Integer_To_String_Function_Theory;
     (* Note: Under Construction! *)
 	
     Type Queue = Record

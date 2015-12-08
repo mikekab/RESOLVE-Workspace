@@ -8,7 +8,7 @@ Realization Do_Nothing_Realiz for Do_Nothing_Capability of Static_Array_Template
 	i := Lower_Bound;
 	While (i < Upper_Bound)
 		changing A, i, Temp;
-		maintaining A = #A and Lower_Bound <= i;
+		maintaining #A = A and Lower_Bound <= i;
 		decreasing (Upper_Bound + (- i));
 	do
 		Swap_Entry(A, Temp, i);

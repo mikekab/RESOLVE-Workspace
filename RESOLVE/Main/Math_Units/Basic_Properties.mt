@@ -63,4 +63,26 @@ Definition Is_Monoid(D : SSet, i : D, f : D * D -> D) : B;
 Definition Is_Abelian_Monoid(D : SSet, i : D, f : D * D -> D) : B;
 Definition Is_Abelian_Group(D : SSet, i : D, f : D * D -> D, g : D -> D) : B;
 
+-----------------------------------------------------------------------------------------
+Definition Is_Transitive(f : (D : SSet) * D -> B) : B;
+Theorem Is_Transitive_def:
+	For all D:SSet,
+	For all f:(D * D)->B,
+	For all x,y,z:D,
+		(Is_Transitive(f) and f(x,y) and f(y,z)) implies f(x,z);
+		
+Definition Is_Total(f : (D : SSet) * D -> B) : B;
+Theorem Is_Total_def:
+	For all D:SSet,
+	For all f:(D * D)->B,
+	For all x,y:D,
+	For all p,q:B,
+		Is_Total(f) and f(x,y) = p and f(y,x) = q implies (p or q);
+		
+Definition Is_Antisymmetric(f : (D : SSet) * D -> B) : B;
+Theorem Is_Antisymmetric_def:
+	For all D:SSet,
+	For all f:(D * D)->B,
+	For all x,y:D,
+		Is_Antisymmetric(f) and f(x,y) and f(y,x) implies x = y;
 end Basic_Properties;

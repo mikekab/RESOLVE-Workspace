@@ -1,6 +1,6 @@
 Concept Sequence_Template(type Entry; evaluates Max_Length: Integer);
 	uses String_Theory;
-	requires Max_Length > 0;
+	requires 1 <= Max_Length;
  
 	Type Family Sequence is modeled by Str(Entry);
 		exemplar S;
@@ -9,11 +9,11 @@ Concept Sequence_Template(type Entry; evaluates Max_Length: Integer);
 	end;
 
 	Operation Insert_after(evaluates Pos: Integer; alters E: Entry; updates S: Sequence);
-		requires 0 <= Pos and Pos <= |S| and |S| < Max_Length;
+		requires 0 <= Pos and Pos <= |S| and 1 + |S| <= Max_Length;
 		ensures S = (Prt_Btwn(0, #Pos, #S) o <#E>) o Prt_Btwn(#Pos, |#S|, #S);
  
 	Operation Remove_after(evaluates Pos: Integer; replaces R: Entry; updates S: Sequence);
-		requires 0 <= Pos and Pos < |S| and |S| > 0;
+		requires 0 <= Pos and 1+ Pos <= |S| and 1 <= |S|;
 		ensures S = (Prt_Btwn(0, #Pos, #S) o Prt_Btwn(#Pos + 1, |#S|, #S)) and 
 				R = DeString(Prt_Btwn(#Pos, #Pos + 1, #S));
 

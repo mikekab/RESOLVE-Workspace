@@ -157,10 +157,14 @@ Theorem N9:
 Theorem N10:
 	Is_Preserved_by(op +, op <=);
 	
-Theorem NN_LTE_Addition:
+Theorem NN_LTE_Addition_a:
 	For all m,n:N,
 		m <= m + n;
-	
+
+Theorem NN_LTE_Addition_c:
+	For all i,j,k:N,
+		i + j <= k implies i <=k and j <= k;
+						
 Theorem Not_LTE_1:
 	For all n:N,
 		not(1 <= n) = (n = 0);

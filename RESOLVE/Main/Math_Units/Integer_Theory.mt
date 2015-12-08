@@ -144,7 +144,7 @@ Theorem I8:
 	
 Theorem I8_Def:
 	For all m,n:Z,
-		0 + n = m implies m = n;
+		0 + n = n;
 		
 Corollary I8_1:
 	Is_Identity_for(op +, 0);
@@ -199,8 +199,10 @@ Corollary One_3:
     1 /= 0;
 
     -- Corollaries 4 to 7 omitted
-
-Corollary LTE_1: -- Is_Transitive(op<=);
+Corollary LTE_1:
+	Is_Transitive(op <=);
+	
+Corollary LTE_1a: -- Is_Transitive(op<=);
     For all l,m,n:Z,
     	l <= m and m <= n implies l <= n;
 
@@ -335,116 +337,41 @@ Corollary I25_2:
  (*	Corollary I25_3:
 		Is_Integral_Domain(Z,0,1,-,+,op* ); *)
 
-Definition Eq_Except_At(F:Z->Entity,G:Z->Entity,i:Z):B;
-
-	Theorem Eq_Except_At_Def:
-	For all i,j:Z,
-	For all F,G:Z->Entity,
-		Eq_Except_At(F,G,i) = (i = j or F(j) = G(j));
-		
-    Theorem Except_At_1:
-    For all F,G:Z->Entity,
-    For all i:Z,
-    	Eq_Except_At(F,G,i) and F(i) = G(i) implies F = G;
-
-    Theorem Except_At_2:
-    For all F,G:Z->Entity,
-    For all i:Z,
-    	Eq_Except_At(F,G,i) = Eq_Except_At(G,F,i);
-
-    Theorem Except_At_3:
-    For all F,G,H:Z->Entity,
-    For all i:Z,
-    	Eq_Except_At(F,G,i) and Eq_Except_At(G,H,i) implies Eq_Except_At(F,H,i);
-
    	---------------------------------------------------------------
 	-- Potential Addons                                
 	---------------------------------------------------------------
-	
-			
-	Theorem Not_LTE_Z_1_0:
-		For all i:Z,
-			not(1 <= i) implies i <= 0;
-			
-	Theorem Add_Zero:
-		For all i:Z,
-			0 + i = i;
-(*			
-    Definition (i: Z) - (j: Z): Z = i + (-j);
-	Theorem Minus_Expanded_Def:
-		For all i,j,k:Z,
-			i - j = k implies k = i + (-j);
-*)			
+
 	Theorem Distribution_Unary_Minus_Over_Addition:
 		For all i,j,k:Z,
-			---(i + j) = k implies k = (-i) + (-j);
 			-(i + j) = (-i) + (-j);
-			
-	Theorem Addition_Over_Equality: -- written to remove negatives
+					
+	Theorem Addition_Over_Equality:
 		For all i,j,k:Z,
-			i + (-j) = k implies i = k + j;
-			
-	Theorem Addition_Over_LTE: -- written to remove negatives
+			(i + (-j) = k) = (i = k + j);
+	
+	Theorem LTE_Z_N:
+		For all i:Z,
+		For all n:N,
+			i <= i + n;
+							 
+	Theorem Addition_Over_LTEa:
 		For all i,j,k:Z,
-			i + (-j) <= k implies i <= k + j;
-   
-	Theorem LT_Expanded_Def_1:
-    	For all i,j:Z,
-    		(i < j) implies (1 + i <= j); 	
- (*
- 	Theorem Subtr_Elim:
-    	For all i,j,k:Z,
-    		((i - j) = k) implies (k + j = i);   
-    		
-    Theorem LT_and_LTE_a:
-    	For all m,n,p:Z,		
-    		 m < n and n <= p implies m + 1 <= p;
-    		 
-    Theorem LT_and_LTE_b:
-    	For all m,n,p:Z,		
-    		 m <= n and n < p implies m + 1 <= p;
-*)
-    		 						
+			(i + j <= k) = (i <= k + (-j));	
+								
+	Theorem Addition_Over_LTEb:
+		For all i,j,k:Z, 
+			(i <= j + k) = (i + (-j) <= k);	
+					
+	Theorem Addition_Over_LTEc:
+		For all i,j,k:Z,
+			(i + j <= i + k) = (j <= k);
+	
 	Theorem Zero_LTE_One:
 		0 <= 1;
 
 	Theorem Neg_One_LTE_Zero:
 		(-1) <= 0;
-	
-	Theorem Zero_LT_One:
-		0 < 1;
-
-	Theorem Neg_One_LT_Zero:
-		(-1) < 0;	
-				
-	Theorem LTE_Plus_Non_Neg_RS:
-		For all i,j,k,m:Z,	
-			i <= j and j + m = k and 0 <= m implies i <= k;
-			
-	Theorem LTE_Sub_LS:
-		For all i,j,k,m:Z,	
-			i <= j and i + m = k and m <= 0 implies k <= j;
-
-	Theorem GTE_Expanded_Def:
-    	For all i,j:Z,
-    	For all p:B,
-    		(i >= j) = p implies (j <= i) = p;
-
-    Theorem GT_Expanded_Def:
-    	For all i,j:Z,
-    	For all p:B,
-    		(i > j) = p implies (j + 1 <= i) = p;
-    		
-    Theorem Not_GTE:
-    	For all i,j:Z,
-    	For all p:B,
-    		(i < j) = p implies not(i >= j) = p;
-
-    Theorem Not_GT:
-    	For all i,j:Z,
-    	For all p:B,
-    		not(i > j) = p implies (i <= j) = p;
-
+						
     Theorem Not_LTE:
     	For all i,j:Z,
     	For all p:B,
@@ -452,72 +379,17 @@ Definition Eq_Except_At(F:Z->Entity,G:Z->Entity,i:Z):B;
 
     Theorem Not_LT:
     	For all i,j:Z,
-    		not(i + 1 <= j) implies j <= i;
-
-    Theorem Not_Eq_1:
-    	For all i,j:Z,
-    		(i > j) implies (i /= j);
-
-    Theorem Not_Eq_2:
-    	For all i,j:Z,
-    		(i < j) implies (i /= j);
-
-   	Theorem Not_Eq_3:
-   		For all i,j,k:Z,
-   			(i + j /= i + k) implies (j /= k);
+    		not(i + 1 <= j) = (j <= i);
 
    	Theorem Not_Eq_4:
    		For all i,j:Z,
-   			(i <= j) and (j /= i) implies (i + 1 <= j);
+   			((i <= j) and not(j = i)) = (i + 1 <= j);
    			
    	Theorem Add_NonZero_Not_Eq:
    		For all i,j,k:Z,
    			(j /= 0) and (i + j = k) implies  i /= k;
 
-	Theorem LT_implies_LTE:
-		For all i,j:Z,
-			(i < j) implies (i <= j);
-
-	Theorem GT_implies_GTE:
-    	For all i,j:Z,
-    		(i > j) implies (j <= i);
 					
-	Theorem Add_GTE_Zero_GTE_a:
-   		For all i,j,k:Z,
-   			(i <= j) and (0 <= k) implies (i <= j + k);
-   			
-	Theorem Add_GTE_Zero_GTE_b:
-   		For all i,j,k,m:Z,
-   			(i <= j) and j + k = m  and 0 <= k implies (i <= m);		
-   			
-	Theorem LTE_Subtr:
-		For all i,j,k:Z,
-			i + (-j) = k and 0 <= j implies k <= i;
-	
-	Theorem LT_Subtr:
-		For all i,j,k:Z,
-			i + (-j) = k and 0 < j implies k + 1 <= i;
-
-	Theorem LTE_Substitution:
-		For all i,j,k:Z,	
-			i <= j and k <= i implies k <= j;
-
-	Theorem Nested_Subt_1:
-		For all i,j:Z,
-			(i + j) + (- j) = i;
-			
-	Theorem Nested_Subt_2:
-		For all i,j:Z,
-			(i + j) + (- i) = j;
-			
-	Theorem Nested_Subt_3:	
-		For all i,j,k:Z,	
-			(i + j) + (-i + k) = j + k;
-					
-	Theorem Positive_Difference:
-		For all i,j: Z,
-			i <= j implies 0 <= j + (-i);
-			
 	Theorem Not_Equal_Primary_a: -- this is a way to express /= using + and <=
 		For all i,j: Z,
 			(not(i = j)) = ((i <= j) = (i + 1 <= j));
@@ -532,4 +404,5 @@ Definition Eq_Except_At(F:Z->Entity,G:Z->Entity,i:Z):B;
     	For all i,j:N,
     		i mod j <= j;
    -- add mod theorems 
+      		
 end Integer_Theory;
