@@ -381,7 +381,7 @@ Corollary I25_2:
     	For all i,j:Z,
     		not(i + 1 <= j) = (j <= i);
 
-   	Theorem Not_Eq_4:
+   	Theorem Not_Eq_And_LTE:
    		For all i,j:Z,
    			((i <= j) and not(j = i)) = (i + 1 <= j);
    			
