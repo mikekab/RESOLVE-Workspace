@@ -124,7 +124,7 @@ Precis String_Theory;
 
 	Corollary Concatenation_3: -- Is_Right_Cancellative(o)
 		For all S,T,U:SStr,
-			((S o U) = (T o U)) = (S = T); -- check with file
+			((S o U) = (T o U)) = (S = T);
 			
 
 (* Inductive Definition |(alpha:SStr)|:N is
@@ -148,18 +148,6 @@ Precis String_Theory;
 		For all alpha,beta:SStr,
 			|alpha o beta| = |alpha| + |beta|;
 			
-	Corollary Str_Length2_without_Length_Op:
-		For all alpha,beta,gamma:SStr,
-			alpha o beta = gamma implies |gamma| = |alpha o beta|;
-	
-	Corollary Str_Length_Lt:
-		For all alpha,beta,gamma:SStr,
-			|alpha o beta| = |gamma| and 1 <= |beta| implies 1 + |alpha| <= |gamma|;
-	
-	Corollary Str_Length_2_1: 
-		For all alpha,beta,gamma:SStr,
-			|alpha o beta| = |gamma| implies |alpha| = |gamma| + (- |beta|);
-		
 	Corollary Str_Length_3:
 		For all alpha,beta,gamma,delta:SStr,
 			((alpha o beta) = (gamma o delta) and |beta| = |delta|)
@@ -224,7 +212,7 @@ Precis String_Theory;
 
 	Corollary Reverse_5:
 		For all alpha,beta:SStr,
-			Reverse(alpha) = beta implies Reverse(beta) = alpha;
+			(Reverse(alpha) = beta) = (Reverse(beta) = alpha);
 
 	Corollary Reverse_6: -- Is_Left_Cancellative( o )
 		For all S,T,U:SStr,
@@ -253,7 +241,7 @@ Precis String_Theory;
 	Corollary Prt_Btwn_1:
 		For all alpha, beta:SStr,
 		For all n:Z,
-			(|alpha| <= n) and Prt_Btwn(0,n,alpha) = beta implies beta = alpha;
+			(|alpha| <= n) implies Prt_Btwn(0,n,alpha) = alpha;
 
 	Corollary Prt_Btwn_2:
 		For all alpha:SStr,

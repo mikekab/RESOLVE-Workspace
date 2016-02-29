@@ -6,11 +6,14 @@ Facility Int_Do_Nothing_Exercise;
         Var I, J, K: Integer;
         Read(I);
         Read(J);
+		Read(K);
         Remember;
-        Presume (I - 1 < I);
-		Confirm (J < I) = (J + 1 <= I);
-		Confirm (J > I) = (I + 1 <= J);
-		Confirm I - J = I + (-J);
+        --Presume (I - 1 < I);
+		Presume I <= J;
+		Confirm I <= K;
+		--Confirm (J < I) = (J + 1 <= I);
+		--Confirm (J > I) = (I + 1 <= J);
+		--Confirm I - J = I + (-J);
 	end Main;
 	
 end Int_Do_Nothing_Exercise;
