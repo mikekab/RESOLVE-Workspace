@@ -1,33 +1,31 @@
 Precis Integer_Domain_Function_Theory;
 	uses Integer_Theory;
 
-	Definition Eq_Except_On(F:Z->Entity,G:Z->Entity,i:Z):B;
-
-	Theorem Eq_Except_On_Def:
-	For all i,j:Z,
-	For all F,G:Z->Entity,
-		Eq_Except_On(F,G,i) = (i = j or F(j) = G(j));
+	Definition Store(F:Z->Entity, i:Z, E:Entity):(Z->Entity);
 	
-	Theorem Except_On_1: -- Reflexive
+	Theorem Store_Def_a:
+	For all F,G:Z->Entity,
 	For all i:Z,
+	For all E:Entity,
+		Store(F,i,E) = G implies G(i) = E;
+		
+	Theorem Store_Def_b:
+	For all F,G:Z->Entity,
+	For all i,j:Z,
+	For all E:Entity,
+		i /= j and Store(F,i,E) = G implies F(j) = G(j);
+
+	Theorem Store_Reflexive:
 	For all F:Z->Entity,
-		Eq_Except_On(F,F,i);
-			
-    Theorem Except_On_2: 
-    For all F,G:Z->Entity,
-    For all i:Z,
-    	(Eq_Except_On(F,G,i) and F(i) = G(i)) implies F = G;
-
-    Theorem Except_On_: -- Symmetric
-    For all F,G:Z->Entity,
-    For all i:Z,
-    	Eq_Except_On(F,G,i) = Eq_Except_On(G,F,i);
-
-    Theorem Except_On_3: -- Transitive
-    For all F,G,H:Z->Entity,
-    For all i:Z,
-    	Eq_Except_On(F,G,i) and Eq_Except_On(G,H,i) implies Eq_Except_On(F,H,i);
-
+	For all i:Z,
+		Store(F,i,F(i)) = F;
+		
+	Theorem Store_Write_Over:
+	For all F:Z->Entity,
+	For all i:Z,
+	For all x,y:Entity,
+		Store(Store(F,i,x),i,y) = Store(F,i,y);
+		
    Definition Property_Holds(f:Z->Entity,lower_bound:Z,upper_bound:Z,p:Z->B):B;
    Theorem Property_Holds_def:
    	For all f:Z->Entity,
@@ -121,8 +119,8 @@ Precis Integer_Domain_Function_Theory;
    For all f:Z->Entity,
    For all i,j,k,m:Z,
    For all key:Entity,   		
-   		i <= j + 1 and (Occ_Ct_In_Range(f,key,i,j + 1) = m) implies
-   			 m = ((Occ_Ct_In_Range(f,key,i,j) + Occ_Ct_In_Range(f,key, j + 1, j + 1)));
+   		key = f(j+1) and i <= j implies
+   			 (Occ_Ct_In_Range(f,key,i,j) + 1 = Occ_Ct_In_Range(f,key, i, j + 1));
    			    			 
    Theorem Occ_Ct_In_Range_5_a:
    For all f:Z->Entity,

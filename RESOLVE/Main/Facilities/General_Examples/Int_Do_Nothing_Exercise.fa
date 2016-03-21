@@ -1,5 +1,4 @@
 Facility Int_Do_Nothing_Exercise;
-    uses Integer_Ext_Theory;
  -- The operation below is intentionally buggy.
     Operation Main();
     Procedure

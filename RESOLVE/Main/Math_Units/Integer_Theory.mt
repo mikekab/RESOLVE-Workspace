@@ -238,7 +238,7 @@ Corollary LTE_10:
 	not(1 <= 0);
 
 Definition |(n: Z)| : Z;
-
+(*
 Theorem Abs_Val_Expanded_Def_1:
 	For all n,m:Z,
 		|n| = m and not(Is_Neg(n)) implies m = n;
@@ -254,7 +254,7 @@ Corollary Abs_Val_1:
 Corollary Abs_Val_2:
 	For all n:Z,
 		|(|-n|)| = |n|;
-
+*)
 	--Omitted Is_Alg_Int_Like section
 
 Inductive Definition (m:Z) * (n:Z):Z is
@@ -340,7 +340,11 @@ Corollary I25_2:
 	Theorem Addition_Over_Equality:
 		For all i,j,k:Z,
 			(i + (-j) = k) = (i = k + j);
-		
+	
+	Theorem Subraction_Cancellation:
+		For all i,j:Z,
+			((i + (-j)) + j) = i;
+			
 	Theorem LTE_Z_N:
 		For all i:Z,
 		For all n:N,

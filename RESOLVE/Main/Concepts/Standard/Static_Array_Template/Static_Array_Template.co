@@ -14,22 +14,19 @@ Concept Static_Array_Template(type Entry; evaluates Lower_Bound, Upper_Bound: In
 
     Operation Swap_Entry(updates A: Static_Array; updates E: Entry; evaluates i: Integer); 
         requires Lower_Bound <= i and i <= Upper_Bound;
-        ensures E = #A(i) 
-        	and #E = A(i) 
-        	and Eq_Except_On(#A,A,i);
+        ensures E = #A(i)  
+        	and A = Store(#A,i,#E);
 			
     Operation Swap_Two_Entries(updates A: Static_Array; evaluates i, j: Integer); 
         requires Lower_Bound <= i  and i <= Upper_Bound and
                  Lower_Bound <= j  and j <= Upper_Bound;
         ensures #A(i) = A(j) 
         	and #A(j) = A(i)  
-        	and Eq_Except_On(#A,A,i)
-        	and Eq_Except_On(#A,A,j);     
+			and A = Store(Store(#A,i,#A(j)),j,#A(i));    
 
     Operation Assign_Entry(updates A: Static_Array; evaluates Exp: Entry; evaluates i: Integer);
         requires Lower_Bound <= i  and i <= Upper_Bound;
-		ensures A(i) = Exp and 
-        	Eq_Except_On(#A,A,i);
+		ensures A = Store(#A,i,Exp);
         	
     Operation Entry_Replica(restores A: Static_Array; evaluates i: Integer): Entry;
         requires Lower_Bound <= i  and i <= Upper_Bound;
