@@ -3,4 +3,5 @@ Enhancement Reading_Capability for Stack_Template;
 		requires 0 <= Count and Count <= Max_Depth;
 
 	Operation Read(replaces S: Stack);
+	
 end Reading_Capability;

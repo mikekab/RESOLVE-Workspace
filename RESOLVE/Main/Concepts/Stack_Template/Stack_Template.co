@@ -1,5 +1,5 @@
 Concept Stack_Template(type Entry; evaluates Max_Depth: Integer);
-        uses String_Theory, Integer_Theory;
+        uses String_Theory, Integer_Theory, Integer_Ext_Theory;
         requires 1 <= Max_Depth;
 
     Type Family Stack is modeled by Str(Entry);
@@ -20,7 +20,7 @@ Concept Stack_Template(type Entry; evaluates Max_Depth: Integer);
         ensures Depth = (|S|);
 
     Operation Rem_Capacity(restores S: Stack): Integer;
-        ensures Rem_Capacity = Max_Depth + (- |S|);
+        ensures Rem_Capacity = (Max_Depth - |S|);
 
     Operation Clear(clears S: Stack);
 

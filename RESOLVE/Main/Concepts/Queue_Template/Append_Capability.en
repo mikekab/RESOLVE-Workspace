@@ -3,4 +3,3 @@ Enhancement Append_Capability for Queue_Template;
         requires |P| + |Q| <= Max_Length;
         ensures P = #P o #Q;
 end Append_Capability;
-

@@ -1,5 +1,5 @@
 Concept Communally_Bounded_List_Template( type Entry; eval Initial_Capacity: Integer );
-	uses String_Theory;
+	uses String_Theory, Integer_Ext_Theory;
 	requires Initial_Capacity > 0;
 	
 	(* Note: Under Construction! *)
@@ -35,7 +35,7 @@ Concept Communally_Bounded_List_Template( type Entry; eval Initial_Capacity: Int
 		updates Remaining_Cap;
 		requires Remaining_Cap > 0;
 		ensures P.Prec = #P.Prec and P.Rem = <#New_Entry> o #P.Rem and
-				Remaining_Cap = #Remaining_Cap + (-1);
+				Remaining_Cap = #Remaining_Cap - 1;
 
 	Oper Rmng_Capacity(): Integer;
 		ensures Rmng_Capacity = ( Remaining_Cap );

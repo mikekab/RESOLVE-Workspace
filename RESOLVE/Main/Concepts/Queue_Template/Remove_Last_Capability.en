@@ -3,4 +3,3 @@ Enhancement Remove_Last_Capability for Queue_Template;
         requires 1 <= |Q|;
         ensures #Q = Q o <E>;
 end Remove_Last_Capability;
-
