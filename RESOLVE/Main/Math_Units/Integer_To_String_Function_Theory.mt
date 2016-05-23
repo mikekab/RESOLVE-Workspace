@@ -42,21 +42,14 @@ Precis Integer_To_String_Function_Theory;
 			(1 <= n) implies
 				Iterated_Concatenation(m, n, F) = 
 				Iterated_Concatenation(m, n + (-1), F) o <F(m + n + -1)>;
-
-(*	Theorem Iterated_Concat_Post_Cat_1_idx:
-		For all n: Z,
-		For all F: Z->Entity,	
-			(1 <= n) implies
-				Iterated_Concatenation(1, n, F) = 
-				Iterated_Concatenation(1, n + (-1), F) o <F(n)>;
-*)				
+				
 	Theorem Iterated_Concat_Post_Cat_no_Negation:
 		For all m, n: Z,
 		For all F: Z->Entity,	
 			(0 <= n) implies
 				Iterated_Concatenation(m, n + 1, F) = 
 				Iterated_Concatenation(m, n, F) o <F(m + n)>;
-				
+								
 	Theorem Iterated_Concat_Eq_On_Interval_1:
 		For all m, n, i: Z,
 		For all F: Z->Entity,
