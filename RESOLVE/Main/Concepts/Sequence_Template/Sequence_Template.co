@@ -1,5 +1,5 @@
 Concept Sequence_Template(type Entry; evaluates Max_Length: Integer);
-	uses String_Theory;
+	uses String_Theory, Integer_Ext_Theory;
 	requires 1 <= Max_Length;
  
 	Type Family Sequence is modeled by Str(Entry);
@@ -21,7 +21,7 @@ Concept Sequence_Template(type Entry; evaluates Max_Length: Integer);
 		ensures Length = (|S|);
  
 	Operation Rem_Capacity(restores S: Sequence): Integer;
-		ensures Rem_Capacity = (Max_Length + (-|S|));
+		ensures Rem_Capacity = (Max_Length - |S|);
  
 	Operation Clear(clears S: Sequence);
  

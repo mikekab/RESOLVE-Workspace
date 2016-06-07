@@ -1,4 +1,3 @@
-
 Realization Multi_Set_Based_Selection_Sort_Realization(
 			Operation Compare(restores E1, E2 : Entry) 
 				: Boolean;

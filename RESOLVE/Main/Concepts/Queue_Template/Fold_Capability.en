@@ -14,4 +14,3 @@ Enhancement Fold_Capability(type T;
 			Fold_String_Left(Combined, List, #Accumulator);
 
 end Fold_Capability;
-

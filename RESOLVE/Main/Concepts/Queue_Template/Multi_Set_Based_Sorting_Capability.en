@@ -1,4 +1,3 @@
-
 Enhancement Multi_Set_Based_Sorting_Capability(
 			Definition LEQV(x, y : Entry) : B) 
 		for Queue_Template;

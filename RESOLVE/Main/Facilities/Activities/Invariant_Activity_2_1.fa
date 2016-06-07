@@ -1,26 +1,25 @@
-Facility Invariant_Activity_3;
+Facility Invariant_Activity_2_1;
 --This is an in-class activity for learning loop invariants
     uses Integer_Template, String_Theory;
-    requires 5 <= max_int;
 
     Facility Queue_Fac is Queue_Template(Integer, 5)
 		realized by Circular_Array_Realiz;
 
-    Operation Remove_Last(updates Q: Queue; replaces E: Integer);
-        requires 1 <= |Q|;
-        ensures #Q = Q o <E>;
-    Procedure 
+    Operation Inject_at_Front(alters E: Integer; updates Q: Queue);
+        requires 1 + |Q| <= 5;
+        ensures Q = <#E> o #Q;
+    Procedure
 		Var T: Queue;
-
-		Dequeue (E, Q);
+		
+		Enqueue (E, T);
 		While ( 1 <= Length(Q) )
 			maintaining true;
 			decreasing |Q|;
 		do
-			Enqueue(E,T);
 			Dequeue(E,Q);
+			Enqueue(E,T);
 		end;
 		Q :=: T;
-	end Remove_Last;
+	end Inject_at_Front;
 
-end Invariant_Activity_3;
+end Invariant_Activity_2_1;

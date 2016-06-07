@@ -1,0 +1,46 @@
+Facility Activity_103b_Reasoning_about_Design_by_Contract;
+	uses Integer_Template;
+
+	-- Repeat the kind of reasoning activities from the previous Design by Contract activities on these examples
+
+	Operation Exchange_1 (updates I: Integer; updates J: Integer);
+		ensures I = #J and J = #I;
+	Procedure
+		Var Temp: Integer;
+
+		Temp := I;
+		I := J;
+		J := Temp;
+	end Exchange_1;
+
+	-- The operation below is intentionally buggy.
+	Operation Exchange_2 (updates I: Integer; updates J: Integer);
+		ensures I = #J and J = #I;
+	Procedure
+		I := I + J;
+		J := I - J;
+		I := I - J;
+	end Exchange_2;
+
+	Operation Main();
+	Procedure
+		Var X, Y: Integer;
+		Write_Line("Input two numbers");
+		Read(X);
+		Read(Y);
+		-- Exchange_1(X, Y);
+		Write("The first number is:");
+		Write(X);
+		Write_Line("------------"); 
+		Write("The second number is:");
+		Write(Y);
+		Write_Line("------------"); 
+		-- Exchange_2(X, Y);
+		Write("The first number is:");
+		Write(X);
+		Write_Line("------------"); 
+		Write("The second number is:");
+		Write(Y);
+		Write_Line("------------"); 
+	end Main; 
+end Activity_103b_Reasoning_about_Design_by_Contract;

@@ -15,4 +15,3 @@ Enhancement Averaging_Capability(Definition AsInteger(e : Entry) : N)
 			Fold_String_Right(Sum, 0, Map(Q, AsInteger)) / |Q|;
 
 end Averaging_Capability;
-
